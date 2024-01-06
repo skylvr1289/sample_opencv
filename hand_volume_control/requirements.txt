@@ -1,0 +1,6 @@
+osascript
+mediapipe
+opencv-python
+matplotlib
+numpy
+opencv-contrib-python
