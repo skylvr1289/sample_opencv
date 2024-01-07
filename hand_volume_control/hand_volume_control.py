@@ -12,8 +12,10 @@ mpHands = mp.solutions.hands
 hands = mpHands.Hands()
 mpDraw = mp.solutions.drawing_utils
 
+
 while True:
     success, frame = cap.read()
+    frame = cv2.flip(frame,1)
     h, w, c = frame.shape
     if frame is not None:
         imgRGB = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
