@@ -1,3 +1,9 @@
+'''
+Functionalities
+1. Distance b/w tuhmb and index finger will set the volume. increase/decrease distance to increase/reduce volume
+2. bring index and middle fingers closer to close the programm
+'''
+
 import cv2
 import mediapipe as mp
 import math
@@ -16,20 +22,21 @@ mp_draw = mp.solutions.drawing_utils
 while True:
     success, frame = cap.read()
     frame = cv2.flip(frame,1)
-    h, w, c = frame.shape
+
     if frame is not None:
         imgRGB = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
+        h, w, c = frame.shape
         results = hands.process(imgRGB)
 
         if results.multi_hand_landmarks:
             for handLms in results.multi_hand_landmarks:
+                # draw the points
                 mp_draw.draw_landmarks(frame, handLms, mp_hands.HAND_CONNECTIONS)
                 lmPoints = handLms.landmark
-                thumb = lmPoints[4]
-                index = lmPoints[8]
-                middletip = lmPoints[12]
-
+                thumb = lmPoints[4] # thumb tip
+                index = lmPoints[8] #index finger tip
+                middletip = lmPoints[12] # middle finger tip
+                # ge the real locations as per the image(video) aspect ratio ie width and height
                 thumb_cx, thumb_cy = int(thumb.x * w), int(thumb.y * h)
                 index_cx, index_cy = int(index.x * w), int(index.y * h)
                 middletip_cx, middletip_cy =  int(middletip.x * w), int(middletip.y * h)
